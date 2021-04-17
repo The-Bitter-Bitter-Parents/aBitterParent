@@ -2,9 +2,12 @@ import "./App.css";
 import Form from "./Form.js";
 import Results from "./Results.js";
 import { useState } from "react";
+import Nutrition from "./Nutrition.js";
 
 function App() {
   const [snackResults, setSnackResults] = useState([]);
+  const [choiceSnack, setChoiceSnack] = useState({});
+  const [healthySnack, setHealthySnack] = useState({});
 
   const getSnacks = (e, query) => {
     e.preventDefault();
@@ -54,6 +57,26 @@ function App() {
       .catch((error) => console.log("error", error));
   };
 
+  const getDetails = (query) => {
+    // console.log(query);
+    const myHeaders = new Headers();
+    myHeaders.append("x-app-id", "2622ee6b");
+    myHeaders.append("x-app-key", "75455fad3c73f5adcd4ef59351c53dcd");
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("query", query);
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+};
+fetch("https://trackapi.nutritionix.com/v2/natural/nutrients", requestOptions)
+  .then(response => response.json())
+  .then(result => setChoiceSnack(result.foods[0]))
+  .catch(error => console.log('error', error));
+  }
+
   return (
     <div>
       <h1>A Bitter Parent</h1>
@@ -62,10 +85,11 @@ function App() {
       <div className="resultsContainer">
         <ul>
           {snackResults.map((item) => {
-            return <Results item={item} />;
+            return <Results item={item} getDetails={getDetails} />;
           })}
         </ul>
       </div>
+      <Nutrition snackItem={choiceSnack} heading='Your Choice' />
     </div>
   );
 }
