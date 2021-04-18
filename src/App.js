@@ -1,15 +1,24 @@
 import "./App.css";
+import Header from './Header'
 import Form from "./Form.js";
 import Results from "./Results.js";
-import { useState } from "react";
 import Nutrition from "./Nutrition.js";
+import Footer from './Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLaughBeam } from '@fortawesome/free-solid-svg-icons'
 import healthyArray from './healthyArray.js';
+import { useState } from "react";
 
 function App() {
 
   const [snackResults, setSnackResults] = useState([]);
   const [choiceSnack, setChoiceSnack] = useState({});
   const [healthySnack, setHealthySnack] = useState({});
+
+  const laugh = <FontAwesomeIcon 
+  icon={faLaughBeam} size='6x'
+  color="#ffb454" 
+  aria-hidden='false'/>
 
   const getSnacks = (e, query) => {
     e.preventDefault();
@@ -98,19 +107,23 @@ fetch("https://trackapi.nutritionix.com/v2/natural/nutrients", requestOptions)
 
   return (
     <div>
-      <h1>A Bitter Parent</h1>
+      <Header />
       <Form getSnacks={getSnacks} />
-      {/* <Results /> */}
+     
       {choiceSnack.food_name ?
-        ( <>
+        ( <div className='comparison wrapper'>
           <Nutrition snackItem={choiceSnack} heading='Your Choice' />
             {healthySnack.food_name ? 
               <Nutrition snackItem={healthySnack} heading='A Healthier Choice' />
               : <div className='nutritionContainer'>
-                  <h4>You made a great choice, go ahead and eat that!</h4> 
+                <h3>A Healthier Choice</h3>
+                  <div className="eatThat">
+                  <h4>You made a great choice, go ahead and eat that!</h4>
+                  {laugh}
+                  </div>
                 </div>} 
-              </>) :
-          (<div className="resultsContainer">
+              </div>) :
+          (<div className="resultsContainer wrapper">
             <ul>
               {snackResults.map((item, index) => {
                 return <Results item={item} getComparison={getComparison} key={index} />;
@@ -118,6 +131,7 @@ fetch("https://trackapi.nutritionix.com/v2/natural/nutrients", requestOptions)
             </ul>
           </div> )
       }
+      <Footer />
     </div>
   );
 }
