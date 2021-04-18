@@ -1,4 +1,11 @@
 const Nutrition = ({snackItem, heading}) => {
+    //  TODO:  Display 0 if the value is null
+    for (let key in snackItem) {
+        if (snackItem[key] === null) {
+            snackItem[key] = 0;
+        }
+    }
+
     return(
         <div className="nutritionContainer">
             <h3>{heading}</h3>
@@ -32,7 +39,7 @@ const Nutrition = ({snackItem, heading}) => {
                 </li>
                 <li>
                     <p>Fibre</p>
-                    <p>{snackItem.nf_dietary_fibre}g</p>
+                    <p>{snackItem.nf_dietary_fiber}g</p>
                 </li>
                 <li>
                     <p>Sugar</p>

@@ -1,9 +1,9 @@
-const Results = ({ item, getDetails }) => {
+const Results = ({ item, getComparison }) => {
   return (
     <li>
       <h4>{item.name}</h4>
       <p>{item.sugar}g of sugar</p>
-      <button onClick={ () => {getDetails(item.name)}}>Select This Snack</button>
+      <button onClick={ () => {getComparison(item.name, item.sugar)}}>Select This Snack</button>
     </li>
   );
 };
