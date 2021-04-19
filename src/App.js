@@ -1,24 +1,29 @@
 import "./App.css";
-import Header from './Header'
+import Header from "./Header";
 import Form from "./Form.js";
 import Results from "./Results.js";
 import Nutrition from "./Nutrition.js";
-import Footer from './Footer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaughBeam } from '@fortawesome/free-solid-svg-icons'
-import healthyArray from './healthyArray.js';
+import Footer from "./Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLaughBeam } from "@fortawesome/free-solid-svg-icons";
+import healthyArray from "./healthyArray.js";
 import { useState } from "react";
+import firebase from "./firebase";
+import SavedSnacks from "./SavedSnacks";
 
 function App() {
-
   const [snackResults, setSnackResults] = useState([]);
   const [choiceSnack, setChoiceSnack] = useState({});
   const [healthySnack, setHealthySnack] = useState({});
 
-  const laugh = <FontAwesomeIcon 
-  icon={faLaughBeam} size='6x'
-  color="#ffb454" 
-  aria-hidden='false'/>
+  const laugh = (
+    <FontAwesomeIcon
+      icon={faLaughBeam}
+      size="6x"
+      color="#ffb454"
+      aria-hidden="false"
+    />
+  );
 
   const getSnacks = (e, query) => {
     e.preventDefault();
@@ -79,21 +84,24 @@ function App() {
     const urlencoded = new URLSearchParams();
     urlencoded.append("query", query);
     const requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: urlencoded,
-      redirect: 'follow'
-};
-fetch("https://trackapi.nutritionix.com/v2/natural/nutrients", requestOptions)
-  .then(response => response.json())
-  .then(result => setterFunction(result.foods[0]))
-  .catch(error => console.log('error', error));
-  }
+      redirect: "follow",
+    };
+    fetch(
+      "https://trackapi.nutritionix.com/v2/natural/nutrients",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => setterFunction(result.foods[0]))
+      .catch((error) => console.log("error", error));
+  };
 
   const getComparison = (userChoice, userSugar) => {
-    const healthySnack = healthyArray.filter( (item) => {
-      return item.sugarContent <= userSugar - 10;
-    })
+    const healthySnack = healthyArray.filter((item) => {
+      return item.sugarContent <= userSugar - 5;
+    });
     console.log(healthySnack);
     if (healthySnack[0]) {
       const randomSnack = Math.floor(Math.random() * healthySnack.length);
@@ -102,35 +110,61 @@ fetch("https://trackapi.nutritionix.com/v2/natural/nutrients", requestOptions)
     } else {
       getDetails(userChoice, setChoiceSnack);
     }
+  };
 
-  }
+  const savePair = () => {
+    const pair = {
+      healthy: healthySnack.food_name,
+      choice: choiceSnack.food_name,
+    };
+    const dbRef = firebase.database().ref();
+    dbRef.push(pair);
+  };
 
   return (
     <div>
       <Header />
       <Form getSnacks={getSnacks} />
-     
-      {choiceSnack.food_name ?
-        ( <div className='comparison wrapper'>
-          <Nutrition snackItem={choiceSnack} heading='Your Choice' />
-            {healthySnack.food_name ? 
-              <Nutrition snackItem={healthySnack} heading='A Healthier Choice' />
-              : <div className='nutritionContainer'>
-                <h3>A Healthier Choice</h3>
-                  <div className="eatThat">
-                  <h4>You made a great choice, go ahead and eat that!</h4>
-                  {laugh}
-                  </div>
-                </div>} 
-              </div>) :
-          (<div className="resultsContainer wrapper">
-            <ul>
-              {snackResults.map((item, index) => {
-                return <Results item={item} getComparison={getComparison} key={index} />;
-              })}
-            </ul>
-          </div> )
-      }
+
+      {choiceSnack.food_name ? (
+        <div className="comparison wrapper">
+          <Nutrition snackItem={choiceSnack} heading="Your Choice" />
+          {healthySnack.food_name ? (
+            <>
+              <Nutrition
+                snackItem={healthySnack}
+                heading="A Healthier Choice"
+              />
+
+              <button onClick={savePair}>Save This Pair</button>
+            </>
+          ) : (
+            <div className="nutritionContainer">
+              <h3>A Healthier Choice</h3>
+              <div className="eatThat">
+                <h4>You made a great choice, go ahead and eat that!</h4>
+                {laugh}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="resultsContainer wrapper">
+          <ul>
+            {snackResults.map((item, index) => {
+              return (
+                <Results
+                  item={item}
+                  getComparison={getComparison}
+                  key={index}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      )}
+      <button>Show Saved Pairs</button>
+      <SavedSnacks />
       <Footer />
     </div>
   );
