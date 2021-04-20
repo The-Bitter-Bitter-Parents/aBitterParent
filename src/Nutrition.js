@@ -1,5 +1,5 @@
 const Nutrition = ({snackItem, heading}) => {
-    //  TODO:  Display 0 if the value is null
+    //  If any of the nutritional values are null, set to 0
     for (let key in snackItem) {
         if (snackItem[key] === null) {
             snackItem[key] = 0;

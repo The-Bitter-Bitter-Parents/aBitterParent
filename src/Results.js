@@ -1,9 +1,13 @@
-const Results = ({ item, getComparison }) => {
+import {Link} from 'react-router-dom';
+
+const Results = ({ item}) => {
   return (
     <li>
       <h4>{item.name}</h4>
       <p>{item.sugar}g of sugar</p>
-      <button onClick={ () => {getComparison(item.name, item.sugar)}}>Select This Snack</button>
+      <Link to={`/comparison/${item.name}/${item.sugar}`}>
+        <button>Select This Snack</button>
+      </Link>
     </li>
   );
 };
