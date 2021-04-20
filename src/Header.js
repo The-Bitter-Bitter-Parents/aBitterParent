@@ -7,7 +7,7 @@ const Header = () => {
             <div className="titleBar wrapper">
                 <div className="logo">
                     <img src={carrot} alt="carrot logo"/>
-                    <h1>A Bitter Parent</h1>
+                    <h1>A Smarter Snack</h1>
                 </div>
                 <div className="nutritionix">
                     <a href='https://www.nutritionix.com/'>Powered by Nutritionix</a>

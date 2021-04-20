@@ -1,11 +1,22 @@
 import Results from './Results';
 import {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTired } from "@fortawesome/free-solid-svg-icons";
 
 const ResultsContainer = (props) => {
+  //  Frown Icon
+  const frown = (
+    <FontAwesomeIcon
+      icon={faTired}
+      size="6x"
+      color="#ffb454"
+      aria-hidden="false"
+    />
+  );
+
   //  State to hold results of API call
     const [snackResults, setSnackResults] = useState([]);
-    const { query } = useParams();
+    const query = props.match.params.query;
     
     //  On component mount call API using user query
     useEffect(() => {
@@ -54,22 +65,31 @@ const ResultsContainer = (props) => {
                 setSnackResults(snacksArray);
               })
               .catch((error) => console.log("error", error));
-    }, [])
+    }, [query])
+
 
     return(
         <div className="resultsContainer wrapper">
-            <ul>
             {/* Ternary to display error */}
-            {snackResults.map((item, index) => {
-                return (
-                    <Results
-                    item={item}
-                    getComparison={props.getComparison}
-                    key={index}
-                    />
-                    );
-                })}
-            </ul>
+            { snackResults[0] ? 
+              (<ul>
+              {snackResults.map((item, index) => {
+                  return (
+                      <Results
+                      item={item}
+                      getComparison={props.getComparison}
+                      key={index}
+                      />
+                      );
+                  })}
+              </ul>)
+              : (
+                <div className="errorMessage">
+                  <h4>Sorry, no results found. Please enter another snack.</h4>
+                  {frown}
+                </div>
+              )
+            }
         </div>
     )
 }
