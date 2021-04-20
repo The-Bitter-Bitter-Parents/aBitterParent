@@ -9,7 +9,6 @@ const SavedSnacks = () => {
     dbRef.on("value", (response) => {
       const newState = [];
       const data = response.val();
-      console.log(data);
 
       for (let key in data) {
         newState.push({
@@ -26,11 +25,11 @@ const SavedSnacks = () => {
       <ul>
         {savedPairs.map((pair) => {
           return (
-            <>
+            <div key={pair.key}>
               <p>{pair.snacks.choice}</p>
               <p>and</p>
               <p>{pair.snacks.healthy}</p>
-            </>
+            </div>
           );
         })}
       </ul>

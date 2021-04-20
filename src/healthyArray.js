@@ -1,3 +1,5 @@
+//  Array of healthy snack choices
+
 const healthyArray = [
   { snackName: "apple", sugarContent: 11.33 },
   { snackName: "carrot", sugarContent: 1.59 },
