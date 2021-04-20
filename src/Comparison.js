@@ -80,6 +80,7 @@ const Comparison = (props) => {
 
     return (
             <div className="comparison wrapper">
+              <h2><span>{healthySnack.food_name}</span> has {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less sugar than <span>{choiceSnack.food_name}</span></h2>
               <Nutrition snackItem={choiceSnack} heading="Your Choice" />
               {/* If there is a healthy snack, display it otherwise display good choice */}
               {healthySnack.food_name ? (
@@ -92,7 +93,7 @@ const Comparison = (props) => {
                 </>
               ) : (
                 <div className="nutritionContainer">
-                  <h3>A Healthier Choice</h3>
+                  <h2>A Healthier Choice</h2>
                   <div className="eatThat">
                     <h4>You made a great choice, go ahead and eat that!</h4>
                     {laugh}

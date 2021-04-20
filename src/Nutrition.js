@@ -8,7 +8,7 @@ const Nutrition = ({snackItem, heading}) => {
 
     return(
         <div className="nutritionContainer">
-            <h3>{heading}</h3>
+            <h2>{heading}</h2>
             <h3>{snackItem.food_name}</h3>
             <p>Serving Size: {snackItem.serving_weight_grams}g</p>
             <h4>Nutritional Information</h4>

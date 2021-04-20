@@ -21,15 +21,15 @@ const SavedSnacks = () => {
   }, []);
 
   return (
-    <div>
+    <div className="snackPairs wrapper">
       <ul>
         {savedPairs.map((pair) => {
           return (
-            <div key={pair.key}>
-              <p>{pair.snacks.choice}</p>
-              <p>and</p>
-              <p>{pair.snacks.healthy}</p>
-            </div>
+            <li key={pair.key}>
+              <h4>{pair.snacks.choice}</h4>
+              <h5>and</h5>
+              <h4>{pair.snacks.healthy}</h4>
+            </li>
           );
         })}
       </ul>

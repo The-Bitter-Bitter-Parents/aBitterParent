@@ -218,7 +218,8 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   font-family: "Maitree", serif;
 }
 
@@ -265,8 +266,22 @@ h1 {
   color: #ffb454;
 }
 
+h2{
+  font-size: 1.5rem;
+}
+
 h3 {
+  font-size: 1.2rem;
   text-transform: capitalize;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.9rem;
+  margin: 10px 0px 30px;
 }
 
 .nutritionix {
@@ -305,6 +320,12 @@ footer {
 
 .description p {
   margin: 0;
+}
+
+.savedPairButton {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 50px;
 }
 
 .formContainer {
@@ -361,7 +382,8 @@ button:focus {
   cursor: pointer;
 }
 
-.resultsContainer ul {
+.resultsContainer ul,
+.snackPairs ul {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
@@ -369,7 +391,8 @@ button:focus {
   padding-left: 0;
 }
 
-.resultsContainer ul li {
+.resultsContainer ul li,
+.snackPairs ul li {
   border: 2px solid #ffb454;
   padding: 20px;
   margin-bottom: 20px;
@@ -393,12 +416,16 @@ li h4 {
   margin: 50px auto;
 }
 
+.comparison h2 span {
+  text-transform: capitalize;
+}
+
 .comparison button {
   margin-top: 40px;
   padding: 10px 30px;
 }
 
-.nutritionContainer:first-child {
+.nutritionContainer:nth-child(2) {
   margin-right: 4%;
 }
 
