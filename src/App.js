@@ -4,12 +4,13 @@ import Form from "./Form.js";
 import ResultsContainer from './ResultsContainer';
 import Comparison from './Comparison';
 import SavedButton from './SavedButton.js'
+import SavedComparison from './SavedComparison'
 import Footer from "./Footer";
 import {
   Route, 
   BrowserRouter as Router,
-  Link
 } 
+
 from 'react-router-dom'
 import SavedSnacks from "./SavedSnacks";
 
@@ -25,7 +26,8 @@ function App() {
         {/* Show comparison when user selects a snack */}
         <Route path='/comparison/:choice/:sugar' component={Comparison}/>
         {/* <Link to = "/SavedSnacks"><button>Show Saved Pairs</button></Link> */}
-        <Route exact path={['/', '/results/:query', '/comparison/:choice/:sugar']} component={SavedButton} />
+        <Route path='/savedComparison/:key' component={SavedComparison} />
+        <Route exact path={['/', '/results/:query', '/comparison/:choice/:sugar', '/savedComparison/:key']} component={SavedButton} />
         <Route path='/SavedSnacks' component={SavedSnacks} />
         <Footer />
       </div>

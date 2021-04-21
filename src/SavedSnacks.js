@@ -1,5 +1,6 @@
 import firebase from "./firebase";
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom'
 
 const SavedSnacks = () => {
   const [savedPairs, setSavedPairs] = useState([]);
@@ -20,15 +21,23 @@ const SavedSnacks = () => {
     });
   }, []);
 
+  const deletePair = (key) => {
+    const dbRef = firebase.database().ref();
+    dbRef.child(key).remove();
+  
+  }
+
   return (
     <div className="snackPairs wrapper">
       <ul>
         {savedPairs.map((pair) => {
           return (
             <li key={pair.key}>
-              <h4>{pair.snacks.choice}</h4>
+              <h4>{pair.snacks.choice.food_name}</h4>
               <h5>and</h5>
-              <h4>{pair.snacks.healthy}</h4>
+              <h4>{pair.snacks.healthy.food_name}</h4>
+              <Link to={`/savedComparison/${pair.key}`}><button>View Nutrition Info</button></Link>
+              <button onClick={() => deletePair(pair.key)}>x</button>
             </li>
           );
         })}
