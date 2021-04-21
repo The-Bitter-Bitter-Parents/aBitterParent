@@ -16,6 +16,7 @@ const ResultsContainer = (props) => {
 
   //  State to hold results of API call
     const [snackResults, setSnackResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
     const query = props.match.params.query;
     
     //  On component mount call API using user query
@@ -38,6 +39,7 @@ const ResultsContainer = (props) => {
             )
               .then((response) => response.json())
               .then((result) => {
+
                 const snacks = result.common;
                 //  Grab important information from the API call
                 const snacksArray = snacks.map((snack) => {
@@ -63,6 +65,7 @@ const ResultsContainer = (props) => {
                   }
                 });
                 setSnackResults(snacksArray);
+                setIsLoading(false)
               })
               .catch((error) => console.log("error", error));
     }, [query])
@@ -70,8 +73,8 @@ const ResultsContainer = (props) => {
 
     return(
         <div className="resultsContainer wrapper">
-            {/* Ternary to display error */}
-            { snackResults[0] ? 
+          {!isLoading ?
+            ( snackResults[0] ? 
               (<ul>
               {snackResults.map((item, index) => {
                   return (
@@ -89,6 +92,9 @@ const ResultsContainer = (props) => {
                   {frown}
                 </div>
               )
+            ) : (
+              <p>Loading snacks...</p>
+            )
             }
         </div>
     )

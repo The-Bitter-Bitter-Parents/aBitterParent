@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 
-const Results = ({ item}) => {
+const Results = ({ item }) => {
   return (
     <li>
       <h4>{item.name}</h4>

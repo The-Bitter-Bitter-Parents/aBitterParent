@@ -23,6 +23,7 @@ const Comparison = (props) => {
     // Stateful variables for hold API results for each snack
     const [choiceSnack, setChoiceSnack] = useState({});
     const [healthySnack, setHealthySnack] = useState({});
+    const [isLoading, setIsLoading] = useState(true)
 
     //  Make API call on component mount
     useEffect(() => {
@@ -50,7 +51,10 @@ const Comparison = (props) => {
         )
           .then((response) => response.json())
           //  Set state to API results
-          .then((result) => setterFunction(result.foods[0]))
+          .then((result) => {
+            setterFunction(result.foods[0])
+            setIsLoading(false)
+          })
           .catch((error) => console.log("error", error));
       };
       
@@ -71,8 +75,8 @@ const Comparison = (props) => {
       //  Save pair of foods to firebase when user pushes save pair button
       const savePair = () => {
         const pair = {
-          healthy: healthySnack.food_name,
-          choice: choiceSnack.food_name,
+          healthy: healthySnack,
+          choice: choiceSnack,
         };
         const dbRef = firebase.database().ref();
         dbRef.push(pair);
@@ -80,9 +84,13 @@ const Comparison = (props) => {
 
     return (
             <div className="comparison wrapper">
-              <h2><span>{healthySnack.food_name}</span> has {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less sugar than <span>{choiceSnack.food_name}</span></h2>
-              <Nutrition snackItem={choiceSnack} heading="Your Choice" />
-              {/* If there is a healthy snack, display it otherwise display good choice */}
+              {/* Ternary to show loading state while api call is running */}
+              {!isLoading ?
+              (
+                <>
+                <h2><span>{healthySnack.food_name}</span> has {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less sugar than <span>{choiceSnack.food_name}</span></h2>
+                <Nutrition snackItem={choiceSnack} heading="Your Choice" />
+                {/* Ternary to display good match when there are not less sugary snacks */}
               {healthySnack.food_name ? (
                 <>
                   <Nutrition
@@ -100,6 +108,12 @@ const Comparison = (props) => {
                   </div>
                 </div>
               )}
+              </>
+              )
+                : (
+                  <p>Loading...</p>
+                )
+            }
             </div>   
     )
 }
