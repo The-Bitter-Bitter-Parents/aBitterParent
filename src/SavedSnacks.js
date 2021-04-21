@@ -1,6 +1,6 @@
 import firebase from "./firebase";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const SavedSnacks = () => {
   const [savedPairs, setSavedPairs] = useState([]);
@@ -19,13 +19,15 @@ const SavedSnacks = () => {
       }
       setSavedPairs(newState);
     });
+    return () => {
+      dbRef.off();
+    };
   }, []);
 
   const deletePair = (key) => {
     const dbRef = firebase.database().ref();
     dbRef.child(key).remove();
-  
-  }
+  };
 
   return (
     <div className="snackPairs wrapper">
@@ -36,8 +38,17 @@ const SavedSnacks = () => {
               <h4>{pair.snacks.choice.food_name}</h4>
               <h5>and</h5>
               <h4>{pair.snacks.healthy.food_name}</h4>
-              <Link to={`/savedComparison/${pair.key}`}><button>View Nutrition Info</button></Link>
-              <button onClick={() => deletePair(pair.key)}>x</button>
+              <Link to={`/savedComparison/${pair.key}`}>
+                <button>View Nutrition Info</button>
+              </Link>
+              <div className="deleteButtonContainer">
+                <button
+                  className="deleteButton"
+                  onClick={() => deletePair(pair.key)}
+                >
+                  x
+                </button>
+              </div>
             </li>
           );
         })}

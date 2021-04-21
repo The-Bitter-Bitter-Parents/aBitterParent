@@ -1,39 +1,39 @@
-import { useState, useEffect } from 'react'
-import firebase from './firebase'
-import Nutrition from './Nutrition'
-
+import { useState, useEffect } from "react";
+import firebase from "./firebase";
+import Nutrition from "./Nutrition";
 
 const SavedComparison = (props) => {
-    const [healthySnack, setHealthySnack] = useState({})
-    const [choiceSnack, setChoiceSnack] = useState({})
-    
-    const key = props.match.params.key;
+  const [healthySnack, setHealthySnack] = useState({});
+  const [choiceSnack, setChoiceSnack] = useState({});
 
-    useEffect(() => {
-        const dbRef = firebase.database().ref()
-        dbRef.on('value', (response) => {
-            setHealthySnack(response.val()[key].healthy)
-            setChoiceSnack(response.val()[key].choice)
-        } )
-    }, [key])
+  const key = props.match.params.key;
 
-  
+  useEffect(() => {
+    const dbRef = firebase.database().ref();
 
-    return (
-        <div className="comparison wrapper">
-              <h2><span>{healthySnack.food_name}</span> has {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less sugar than <span>{choiceSnack.food_name}</span></h2>
-              
-              <Nutrition 
-                snackItem={choiceSnack} 
-                heading="Your Choice" 
-              />
-              
-             <Nutrition
-                snackItem={healthySnack}
-                heading="A Healthier Choice"
-            />      
-        </div>   
-    )
-}
+    dbRef.on("value", (response) => {
+      setHealthySnack(response.val()[key].healthy);
+      setChoiceSnack(response.val()[key].choice);
+    });
 
-export default SavedComparison
+    return () => {
+      dbRef.off();
+    };
+  }, []);
+
+  return (
+    <div className="comparison wrapper">
+      <h2>
+        <span>{healthySnack.food_name}</span> has{" "}
+        {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less
+        sugar than <span>{choiceSnack.food_name}</span>
+      </h2>
+
+      <Nutrition snackItem={choiceSnack} heading="Your Choice" />
+
+      <Nutrition snackItem={healthySnack} heading="A Healthier Choice" />
+    </div>
+  );
+};
+
+export default SavedComparison;
