@@ -24,6 +24,8 @@ const Comparison = (props) => {
   const [choiceSnack, setChoiceSnack] = useState({});
   const [healthySnack, setHealthySnack] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState('Save This Pair');
 
   const getDetails = (query, setterFunction) => {
     // API Call
@@ -52,10 +54,6 @@ const Comparison = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  // const getComparison = (userChoice, userSugar) => {
-    // Filter through healthy array and only include snacks with 5g or less sugar than the choice
-    
-  // };
   //  Save pair of foods to firebase when user pushes save pair button
   const savePair = () => {
     const pair = {
@@ -64,9 +62,12 @@ const Comparison = (props) => {
     };
     const dbRef = firebase.database().ref();
     dbRef.push(pair);
+    setIsDisabled(true);
+    setButtonText('Saved');
   };
 
    //  Make API call on component mount
+  // Filter through healthy array and only include snacks with 5g or less sugar than the choice
   useEffect(() => {
     const healthySnack = healthyArray.filter((item) => {
       return item.sugarContent <= sugar - 5;
@@ -99,7 +100,7 @@ const Comparison = (props) => {
                 snackItem={healthySnack}
                 heading="A Healthier Choice"
               />
-              <button onClick={savePair}>Save This Pair</button>
+              <button onClick={savePair} disabled={isDisabled}>{buttonText}</button>
             </>
           ) : (
             <div className="nutritionContainer">
