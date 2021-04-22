@@ -17,7 +17,7 @@ import SavedSnacks from "./SavedSnacks";
 function App() {
   
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div>
         <Header />
         <Form />
