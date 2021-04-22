@@ -19,7 +19,7 @@ const SavedComparison = (props) => {
     return () => {
       dbRef.off();
     };
-  }, []);
+  }, [key]);
 
   return (
     <div className="comparison wrapper">

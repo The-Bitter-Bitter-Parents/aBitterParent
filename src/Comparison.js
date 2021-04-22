@@ -28,7 +28,7 @@ const Comparison = (props) => {
   //  Make API call on component mount
   useEffect(() => {
     getComparison(choice, sugar);
-  }, []);
+  }, [choice, getComparison, sugar]);
 
   const getDetails = (query, setterFunction) => {
     // API Call
