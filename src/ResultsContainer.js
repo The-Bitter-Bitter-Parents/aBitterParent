@@ -21,11 +21,9 @@ const ResultsContainer = (props) => {
     
     //  On component mount call API using user query
     useEffect(() => {
-            // setChoiceSnack({});
-            // setHealthySnack({});
             const myHeaders = new Headers();
-            myHeaders.append("x-app-id", "df445c8d");
-            myHeaders.append("x-app-key", "aafcc21abbff4ba8ef87b9892cb2d5a9");
+            myHeaders.append("x-app-id", "1b42acf4");
+            myHeaders.append("x-app-key", "e317853a8b140e221edc676098de067b");
         
             const requestOptions = {
               method: "GET",

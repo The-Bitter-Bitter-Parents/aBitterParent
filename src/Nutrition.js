@@ -1,4 +1,4 @@
-const Nutrition = ({snackItem, heading}) => {
+const Nutrition = ({snackItem, heading, className}) => {
     //  If any of the nutritional values are null, set to 0
     for (let key in snackItem) {
         if (snackItem[key] === null) {
@@ -7,7 +7,7 @@ const Nutrition = ({snackItem, heading}) => {
     }
 
     return(
-        <div className="nutritionContainer">
+        <div className={`nutritionContainer ${className}`}>
             <h2>{heading}</h2>
             <h3>{snackItem.food_name}</h3>
             <p>Serving Size: {snackItem.serving_weight_grams}g</p>

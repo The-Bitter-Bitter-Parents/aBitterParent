@@ -87,22 +87,25 @@ const Comparison = (props) => {
       {/* Ternary to show loading state while api call is running */}
       {!isLoading ? (
         <>
-          <h2 className="comparisonTitle">
-            <span>{healthySnack.food_name}</span> has{" "}
-            {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less
-            sugar than <span>{choiceSnack.food_name}</span>
-          </h2>
-          <Nutrition snackItem={choiceSnack} heading="Your Choice" />
+          
           {/* Ternary to display good match when there are not less sugary snacks */}
           {healthySnack.food_name ? (
             <>
+              <h2 className="comparisonTitle">
+              <span>{healthySnack.food_name}</span> has{" "}
+              {(choiceSnack.nf_sugars - healthySnack.nf_sugars).toFixed(0)}g less sugar than <span>{choiceSnack.food_name}</span>
+              </h2>
+              <Nutrition snackItem={choiceSnack} heading="Your Choice" className="first" />
               <Nutrition
                 snackItem={healthySnack}
                 heading="A Healthier Choice"
+                className="second"
               />
               <button onClick={savePair} disabled={isDisabled}>{buttonText}</button>
             </>
           ) : (
+            <>
+            <Nutrition snackItem={choiceSnack} heading="Your Choice" className="first"/>
             <div className="nutritionContainer">
               <h2>A Healthier Choice</h2>
               <div className="eatThat">
@@ -110,6 +113,7 @@ const Comparison = (props) => {
                 {laugh}
               </div>
             </div>
+            </>
           )}
         </>
       ) : (

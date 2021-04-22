@@ -14,9 +14,9 @@ const Form = () => {
       <div className="formImg wrapper">
         <form>
           <label htmlFor="userInput">Search For A Snack</label>
-          <input type="text" id="userInput" onChange={handleChange} placeholder='Search...'/>
+          <input type="text" id="userInput" onChange={handleChange} placeholder='Search...' value={snacks}/>
           <Link to={`/results/${snacks}`} >
-            <button type="submit">Find Your Snack</button>
+            <button type="submit" onClick={() => setSnacks('')}>Find Your Snack</button>
           </Link>
         </form>
       </div>
