@@ -1,5 +1,5 @@
 import Results from './Results';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTired } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +13,8 @@ const ResultsContainer = (props) => {
       aria-hidden="false"
     />
   );
+
+  const resultsRef = useRef();
 
   //  State to hold results of API call
     const [snackResults, setSnackResults] = useState([]);
@@ -64,13 +66,14 @@ const ResultsContainer = (props) => {
                 });
                 setSnackResults(snacksArray);
                 setIsLoading(false)
+                resultsRef.current.scrollIntoView({behavior: 'smooth'});
               })
               .catch((error) => console.log("error", error));
     }, [query])
 
 
     return(
-        <div className="resultsContainer wrapper">
+        <div className="resultsContainer wrapper" ref={resultsRef}>
           {!isLoading ?
             ( snackResults[0] ? 
               (<ul>
