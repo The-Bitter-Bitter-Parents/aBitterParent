@@ -52,20 +52,10 @@ const Comparison = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  const getComparison = (userChoice, userSugar) => {
+  // const getComparison = (userChoice, userSugar) => {
     // Filter through healthy array and only include snacks with 5g or less sugar than the choice
-    const healthySnack = healthyArray.filter((item) => {
-      return item.sugarContent <= userSugar - 5;
-    });
-    //  If there are snacks that fit the criteria pick a random healthy snack and display both otherwise display 'Good Choice'
-    if (healthySnack[0]) {
-      const randomSnack = Math.floor(Math.random() * healthySnack.length);
-      getDetails(userChoice, setChoiceSnack);
-      getDetails(healthySnack[randomSnack].snackName, setHealthySnack);
-    } else {
-      getDetails(userChoice, setChoiceSnack);
-    }
-  };
+    
+  // };
   //  Save pair of foods to firebase when user pushes save pair button
   const savePair = () => {
     const pair = {
@@ -78,7 +68,17 @@ const Comparison = (props) => {
 
    //  Make API call on component mount
   useEffect(() => {
-    getComparison(choice, sugar);
+    const healthySnack = healthyArray.filter((item) => {
+      return item.sugarContent <= sugar - 5;
+    });
+    //  If there are snacks that fit the criteria pick a random healthy snack and display both otherwise display 'Good Choice'
+    if (healthySnack[0]) {
+      const randomSnack = Math.floor(Math.random() * healthySnack.length);
+      getDetails(choice, setChoiceSnack);
+      getDetails(healthySnack[randomSnack].snackName, setHealthySnack);
+    } else {
+      getDetails(choice, setChoiceSnack);
+    }
   }, [choice, sugar]);
 
   return (
