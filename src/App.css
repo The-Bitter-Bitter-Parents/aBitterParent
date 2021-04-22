@@ -452,7 +452,7 @@ li h4 {
   padding: 10px 30px;
 }
 
-.nutritionContainer:nth-child(2) {
+.nutritionContainer.first {
   margin-right: 4%;
 }
 
@@ -560,7 +560,7 @@ footer {
     width: 100%;
   }
 
-  .nutritionContainer:nth-child(2) {
+  .nutritionContainer.first {
     margin-right: 0;
     margin-bottom: 40px;
   }
