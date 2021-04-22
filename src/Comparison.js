@@ -25,11 +25,6 @@ const Comparison = (props) => {
   const [healthySnack, setHealthySnack] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  //  Make API call on component mount
-  useEffect(() => {
-    getComparison(choice, sugar);
-  }, [choice, getComparison, sugar]);
-
   const getDetails = (query, setterFunction) => {
     // API Call
     const myHeaders = new Headers();
@@ -80,6 +75,11 @@ const Comparison = (props) => {
     const dbRef = firebase.database().ref();
     dbRef.push(pair);
   };
+
+   //  Make API call on component mount
+  useEffect(() => {
+    getComparison(choice, sugar);
+  }, [choice, sugar]);
 
   return (
     <div className="comparison wrapper">
