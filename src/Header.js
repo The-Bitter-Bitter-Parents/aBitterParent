@@ -37,7 +37,7 @@ const Header = () => {
                 <span className="visuallyHidden">Home</span>
               </li>
             </Link>
-            <Link to="/SavedSnacks">
+            <Link to="/SavedSnacks" >
               <li>
                 {heart}
                 <span className="visuallyHidden">Saved Snacks</span>

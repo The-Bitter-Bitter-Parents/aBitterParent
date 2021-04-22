@@ -1,9 +1,10 @@
 import firebase from "./firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const SavedSnacks = () => {
   const [savedPairs, setSavedPairs] = useState([]);
+  const scrollRef = useRef();
 
   useEffect(() => {
     const dbRef = firebase.database().ref();
@@ -18,6 +19,7 @@ const SavedSnacks = () => {
         });
       }
       setSavedPairs(newState);
+      scrollRef.current.scrollIntoView({behavior: 'smooth'})
     });
     return () => {
       dbRef.off();
@@ -30,7 +32,7 @@ const SavedSnacks = () => {
   };
 
   return (
-    <div className="snackPairs wrapper">
+    <div className="snackPairs wrapper" ref={scrollRef}>
       <ul>
         {savedPairs.map((pair) => {
           return (

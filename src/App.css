@@ -229,7 +229,7 @@ li {
 
 a {
   text-decoration: none;
-  color: black;
+  color: #000;
 }
 
 a:hover,
@@ -374,7 +374,7 @@ form label {
 input {
   width: 80%;
   margin: 40px 0;
-  border: 1px solid black;
+  border: 1px solid #000;
   height: 40px;
   padding-left: 10px;
 }
@@ -382,7 +382,7 @@ input {
 button,
 .deleteButtonContainer {
   background-color: #ffb454;
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 5px;
   padding: 10px 20px 7px;
   text-transform: uppercase;
@@ -398,6 +398,13 @@ button:focus,
   cursor: pointer;
 }
 
+.errorMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .resultsContainer ul,
 .snackPairs ul {
   display: grid;
@@ -410,7 +417,7 @@ button:focus,
 .resultsContainer ul li,
 .snackPairs ul li {
   border: 2px solid #ffb454;
-  padding: 20px;
+  padding: 45px 20px 20px;
   margin-bottom: 20px;
   width: 100%;
 }
@@ -509,6 +516,13 @@ li h4 {
   justify-content: center;
 }
 
+.toTopButton {
+  position: fixed;
+  bottom: 20px;
+  right: -100px;
+  opacity: 0.65;
+}
+
 footer {
   font-size: 0.8rem;
 }
@@ -560,6 +574,10 @@ footer {
 
   button {
     font-size: 0.8rem;
+  }
+
+  .toTopButton {
+    right: 20px;
   }
 }
 
