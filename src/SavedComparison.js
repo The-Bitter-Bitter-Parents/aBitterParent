@@ -29,9 +29,9 @@ const SavedComparison = (props) => {
         sugar than <span>{choiceSnack.food_name}</span>
       </h2>
 
-      <Nutrition snackItem={choiceSnack} heading="Your Choice" />
+      <Nutrition snackItem={choiceSnack} heading="Your Choice" className="first" />
 
-      <Nutrition snackItem={healthySnack} heading="A Healthier Choice" />
+      <Nutrition snackItem={healthySnack} heading="A Healthier Choice" className="second" />
     </div>
   );
 };

@@ -417,9 +417,17 @@ button:focus,
 .resultsContainer ul li,
 .snackPairs ul li {
   border: 2px solid #ffb454;
-  padding: 45px 20px 20px;
+  padding: 20px;
   margin-bottom: 20px;
   width: 100%;
+}
+
+.snackPairs ul li {
+  padding-top: 45px;
+}
+
+.resultsContainer ul li h4 {
+  margin-bottom: 40px;
 }
 
 li h4 {
@@ -532,6 +540,12 @@ footer {
 }
 
 /* media queries */
+
+@media (max-width: 950px) {
+  .resultsContainer ul li h4 {
+    margin-bottom: 80px;
+  }
+} 
 
 @media (max-width: 900px) {
   h1 {
