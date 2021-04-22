@@ -258,15 +258,15 @@ a:focus {
   height: 70px;
   width: 70px;
   transform: rotate(-45deg);
+  margin-bottom: 20px;
 }
 
 h1 {
   font-size: 3rem;
-  margin-bottom: 20px;
   color: #ffb454;
 }
 
-h2{
+h2 {
   font-size: 1.5rem;
 }
 
@@ -294,6 +294,19 @@ h5 {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  padding-left: 0;
+  margin: 0;
+}
+
+nav ul li svg:focus,
+nav ul li svg:hover {
+  color: #8df8b7;
 }
 
 .nutritionix a {
@@ -366,7 +379,8 @@ input {
   padding-left: 10px;
 }
 
-button {
+button,
+.deleteButtonContainer {
   background-color: #ffb454;
   border: 1px solid black;
   border-radius: 5px;
@@ -377,7 +391,9 @@ button {
 }
 
 button:hover,
-button:focus {
+button:focus,
+.deleteButtonContainer:hover,
+.deleteButtonContainer:focus {
   background-color: #8df8b7;
   cursor: pointer;
 }
@@ -414,6 +430,10 @@ li h4 {
   justify-content: center;
   flex-wrap: wrap;
   margin: 50px auto;
+}
+.comparisonTitle {
+  width: 100%;
+  text-align: center;
 }
 
 .comparison h2 span {
@@ -457,6 +477,147 @@ li h4 {
   padding-top: 70px;
 }
 
+.snackPairs li {
+  position: relative;
+}
+
+.snackPairs button {
+  margin-top: 20px;
+}
+
+.snackPairs .deleteButton {
+  border: none;
+  background: none;
+  margin-top: 0;
+}
+
+.deleteButton:hover,
+.deleteButton:focus {
+  background: none;
+}
+
+.deleteButtonContainer {
+  padding: 0;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 footer {
   font-size: 0.8rem;
+}
+
+.nutritionix {
+  margin: 0 auto;
+}
+
+/* media queries */
+
+@media (max-width: 900px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .logo img {
+    height: 60px;
+    width: 60px;
+  }
+
+  .formContainer {
+    padding: 0px;
+  }
+
+  .formImg {
+    width: 100%;
+  }
+
+  .comparison {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nutritionContainer {
+    width: 100%;
+  }
+
+  .nutritionContainer:nth-child(2) {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .resultsContainer ul,
+  .snackPairs ul {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .titleBar {
+    flex-direction: column;
+    margin: 40px auto;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .logo {
+    flex-direction: column;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 620px) {
+  form label {
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .resultsContainer ul,
+  .snackPairs ul {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .description {
+    font-size: 0.8rem;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .nutritionContainer p {
+    font-size: 0.8rem;
+  }
 }
